@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jpaapp;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author student
+ */
+public class JPAApp {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+      EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPAAppPU");
+      EntityManager entityManager = entityManagerFactory.createEntityManager();
+     
+      Zespol zespol=entityManager.find(Zespol.class, new Short("10"));
+      //Zespol.findAll();
+      System.out.println(zespol.getIdZesp());
+      System.out.println(zespol.getNazwa());
+      System.out.println(zespol.getAdres());
+      Query query = entityManager.createQuery("SELECT z FROM Zespol z ORDER BY z.nazwa");
+      List<Zespol> listaZespolow = query.getResultList();
+        for(Zespol z : listaZespolow)
+        System.out.println("ID_ZESP: "+z.getIdZesp()+", nazwa: "+z.getNazwa()+", adres: "+z.getAdres());
+    }
+    
+}
